@@ -3,7 +3,7 @@ var browser = require('./browser')
 var isMobile = browser.versions.mobile === true && $(window).width() < 800
 
 function init() {
-	var frameClass = 'js-archives-frame'
+	var frameClass = 'js-archives-frame';
 
 	if (top !== window) {
 		// 子级
@@ -18,7 +18,7 @@ function init() {
 		})
 		// 页码
 		$('.page-number').click(function() {
-			$(top.document).find('.' + frameClass).hide()
+			// $(top.document).find('.' + frameClass).hide();
 		})
 		// 去掉日期点击
 		$('.archive-article-date').attr('href', 'javascript:void(0);')
@@ -29,7 +29,8 @@ function init() {
 		// 避免闪动
 		$frame[0].onload = function() {
 			var timeout = setInterval(function() {
-				var framebody = $($('.js-archives-frame')[0].contentWindow.document).find('.archive-inner')
+				var framebody = $($('.js-archives-frame')[0].contentWindow.document).find('.archive-inner');
+				framebody.css({'height':$($frame[0]).height()+'px'});
 				if (framebody.length) {
 					$frame.show()
 					clearTimeout(timeout)
